@@ -64,7 +64,7 @@ class Adapter(var data: ArrayList<Content>, var context: Context) :
                     when {
                         seekBar.progress == 1 -> {
                             data.clear()
-                            data.add(Content(1, 100,data[holder.adapterPosition].color))
+                            data.add(Content(1, 100,"#e84c3d"))
                             notifyDataSetChanged()
                         }
                         else -> {

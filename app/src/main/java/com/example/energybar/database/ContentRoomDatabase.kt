@@ -38,8 +38,7 @@ abstract class ContentRoomDatabase : RoomDatabase() {
     }
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
+
         @Volatile
         private var INSTANCE: ContentRoomDatabase? = null
 
