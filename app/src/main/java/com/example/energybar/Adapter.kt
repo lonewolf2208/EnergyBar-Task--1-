@@ -13,15 +13,15 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.energybar.databinding.CardViewBinding
+import com.example.energybar.model.Content
 
 
-class Adapter(var data: ArrayList<seekbar>, var context: Context) :
+class Adapter(var data: ArrayList<Content>, var context: Context) :
     RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: CardViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -35,10 +35,6 @@ class Adapter(var data: ArrayList<seekbar>, var context: Context) :
 
     override fun getItemCount(): Int {
         return data.size
-    }
-
-    interface ClickListener {
-        fun OnClick(position: Int)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -67,7 +63,7 @@ class Adapter(var data: ArrayList<seekbar>, var context: Context) :
                     when {
                         seekBar.progress == 1 -> {
                             data.clear()
-                            data.add(seekbar(1, 100))
+                            data.add(Content(1, 100))
                             notifyDataSetChanged()
                         }
                         else -> {
@@ -77,23 +73,20 @@ class Adapter(var data: ArrayList<seekbar>, var context: Context) :
                         }
                     }
                 }
-                if ((seekBar.progress - seekBar.min) < 2) {
-                    Toast.makeText(context, "Minimum segment length is 2!", Toast.LENGTH_SHORT)
-                        .show()
-                    notifyDataSetChanged()
-                } else {
-                    if (seekBar.progress != seekBar.max-1) {
+                    else if ((seekBar.max - seekBar.progress) > 1 && (seekBar.progress - seekBar.min) > 0)  {
                         data.add(
                             holder.adapterPosition + 1,
-                            seekbar(seekBar.progress + 1,seekBar.max)
+                            Content(seekBar.progress + 1, seekBar.max)
                         )
                         data[holder.adapterPosition].End = seekBar.progress
                         notifyDataSetChanged()
                     }
-                    else
-                    {seekBar.progress=seekBar.max
-                    notifyDataSetChanged()}
+                else  {
+                    Toast.makeText(context, "Minimum segment length is 2!", Toast.LENGTH_SHORT)
+                        .show()
+                    notifyDataSetChanged()
                 }
+
             }
         })
     }
