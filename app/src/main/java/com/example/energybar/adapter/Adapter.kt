@@ -1,17 +1,16 @@
-package com.example.energybar
+package com.example.energybar.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.energybar.R
 import com.example.energybar.databinding.CardViewBinding
 import com.example.energybar.model.Content
 
@@ -43,6 +42,8 @@ class Adapter(var data: ArrayList<Content>, var context: Context) :
         holder.binding.seekBar.max = data[holder.adapterPosition].End
         holder.binding.seekBar.setProgress(data[holder.adapterPosition].End)
         holder.binding.dustbin.visibility = View.INVISIBLE
+        holder.binding.cardView.setBackgroundColor(Color.parseColor(data[holder.adapterPosition].color))
+        holder.binding.cardView2.setBackgroundColor(Color.parseColor(data[holder.adapterPosition].color))
         holder.binding.start.text = data[holder.adapterPosition].start.toString()
         holder.binding.end.text = data[holder.adapterPosition].End.toString()
 
@@ -63,7 +64,7 @@ class Adapter(var data: ArrayList<Content>, var context: Context) :
                     when {
                         seekBar.progress == 1 -> {
                             data.clear()
-                            data.add(Content(1, 100))
+                            data.add(Content(1, 100,data[holder.adapterPosition].color))
                             notifyDataSetChanged()
                         }
                         else -> {
@@ -76,7 +77,7 @@ class Adapter(var data: ArrayList<Content>, var context: Context) :
                     else if ((seekBar.max - seekBar.progress) > 1 && (seekBar.progress - seekBar.min) > 0)  {
                         data.add(
                             holder.adapterPosition + 1,
-                            Content(seekBar.progress + 1, seekBar.max)
+                            Content(seekBar.progress + 1, seekBar.max,data[holder.adapterPosition].color)
                         )
                         data[holder.adapterPosition].End = seekBar.progress
                         notifyDataSetChanged()

@@ -1,6 +1,7 @@
-package com.example.energybar
+package com.example.energybar.database
 
 import android.app.Application
+import com.example.energybar.database.ContentRoomDatabase
 import com.example.energybar.repo.ContentRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob

@@ -1,7 +1,7 @@
 package com.example.energybar.repo
 
 import androidx.annotation.WorkerThread
-import com.example.energybar.ContentDAO
+import com.example.energybar.database.ContentDAO
 import com.example.energybar.model.Content
 
 class ContentRepo(private val wordDao: ContentDAO) {
